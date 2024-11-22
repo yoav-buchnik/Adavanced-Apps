@@ -1,0 +1,25 @@
+{
+  "name": "adavanced-app-ex01",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoav-buchnik/adavanced-app-ex01.git"
+  },
+  "author": "Yoav buchnik && Omer yerushalmi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yoav-buchnik/adavanced-app-ex01/issues"
+  },
+  "homepage": "https://github.com/yoav-buchnik/adavanced-app-ex01#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}
