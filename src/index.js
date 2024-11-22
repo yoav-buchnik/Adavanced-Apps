@@ -1,14 +1,13 @@
 import express from "express";
 import cors from "cors";
 import { connect, disconnect } from "./db.js";
+import config from "./config/config.js";
 
 import postsRoutes from "./routes/posts-route.js";
 
 const app = express();
-const port = 3000;
-const mongoUri = "mongodb://127.0.0.1/fsd1?authSource=admin";
 
-await connect(mongoUri);
+await connect(config.mongoDB.uri);
 app.use(express.json()); // Accept json body
 app.use(cors());
 app.use("/api/posts", postsRoutes());
@@ -17,8 +16,8 @@ app.get("/", (req, res) => {
   res.send("Hello World! - Backend");
 });
 
-app.listen(port, () => {
-  console.log(`Backend is running on port ${port}`);
+app.listen(config.backend.port, () => {
+  console.log(`Backend is running on port ${config.backend.port}`);
 });
 
 // Handle uncaught exceptions
