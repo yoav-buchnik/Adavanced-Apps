@@ -1,11 +1,15 @@
 import { Post } from "../models/Post.js";
+import mongoose from "mongoose";
 
 const getAllPosts = async () => {
   return await Post.find({});
 };
 
 const getPostById = async (id) => {
-  return "Needs implementation";
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return undefined;
+  }
+  return await Post.findById(id);
 };
 
 const createPost = async (postData) => {
@@ -20,14 +24,9 @@ const deletePost = async (id) => {
   return "Needs implementation";
 };
 
-const getPostBySender = async (sender) => {
-  return "Needs implementation";
-};
-
 export default {
   getAllPosts,
   getPostById,
-  getPostBySender,
   createPost,
   updatePost,
   deletePost,

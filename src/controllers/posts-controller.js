@@ -11,11 +11,13 @@ const getAllPosts = () => async (req, res) => {
 };
 
 const getPostById = () => async (req, res) => {
-  return "Needs implementation";
-};
-
-const getPostBySender = () => async (req, res) => {
-  return "Needs implementation";
+  try {
+    const id = req.params.id;
+    const data = await postsService.getPostById(id);
+    res.status(data ? config.statusCode.SUCCESS : config.statusCode.NOT_FOUND).json(data);
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 };
 
 const createPost = () => async (req, res) => {
@@ -53,5 +55,4 @@ export default {
   createPost,
   deletePost,
   updatePost,
-  getPostBySender,
 };
