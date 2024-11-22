@@ -7,7 +7,7 @@ const config = {
     port: process.env.BACKEND_PORT || 3000,
   },
   mongoDB: {
-    uri: process.env.MONGO_URI || "mongodb://127.0.0.1/?authSource=admin",
+    uri: process.env.MONGO_URI || "mongodb://root:dev@127.0.0.1/?authSource=admin",
   },
   statusCode: {
     SUCCESS: 200,
