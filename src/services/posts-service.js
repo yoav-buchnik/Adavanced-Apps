@@ -12,7 +12,7 @@ const getPostById = async (id) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return undefined;
   }
-  return await Post.findById(id);
+  return await Post.findById(id) ?? undefined;;
 };
 
 const createPost = async (postData) => {
@@ -31,8 +31,14 @@ const updatePost = async (id, content) => {
 };
 
 const deletePost = async (id) => {
-  return "Needs implementation";
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return undefined;
+  }
+
+  const deletedPost = await Post.findByIdAndDelete(id);
+  return deletedPost ?? undefined;
 };
+
 
 export default {
   getAllPosts,

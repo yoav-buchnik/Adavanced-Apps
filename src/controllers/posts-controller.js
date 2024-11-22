@@ -45,7 +45,13 @@ const createPost = () => async (req, res) => {
 };
 
 const deletePost = () => async (req, res) => {
-  return "Needs implementation";
+  try {
+    const id = req.params.id;
+    const data = await postsService.deletePost(id);
+    res.status(config.statusCode.SUCCESS).json(data);
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 };
 
 const updatePost = () => async (req, res) => {
@@ -54,9 +60,7 @@ const updatePost = () => async (req, res) => {
     const id = req.params.id;
 
     if (!content) {
-      res
-        .status(config.statusCode.BAD_REQUEST)
-        .json("{content} is required.");
+      res.status(config.statusCode.BAD_REQUEST).json("{content} is required.");
     } else {
       const data = await postsService.updatePost(id, content);
       res.status(config.statusCode.SUCCESS).json(data);
