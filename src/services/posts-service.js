@@ -2,7 +2,7 @@ import { Post } from "../models/Post.js";
 import mongoose from "mongoose";
 
 const getAllPosts = async (sender) => {
-  if (sender){
+  if (sender) {
     return await Post.find({ sender });
   }
   return await Post.find({});
@@ -19,8 +19,15 @@ const createPost = async (postData) => {
   return await Post.create(postData);
 };
 
-const updatePost = async (id, postData) => {
-  return "Needs implementation";
+const updatePost = async (id, content) => {
+  const post = await getPostById(id);
+
+  if (post) {
+    post.content = content;
+    await post.save();
+  }
+
+  return post;
 };
 
 const deletePost = async (id) => {
