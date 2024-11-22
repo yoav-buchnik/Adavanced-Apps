@@ -1,7 +1,10 @@
 import { Post } from "../models/Post.js";
 import mongoose from "mongoose";
 
-const getAllPosts = async () => {
+const getAllPosts = async (sender) => {
+  if (sender){
+    return await Post.find({ sender });
+  }
   return await Post.find({});
 };
 
