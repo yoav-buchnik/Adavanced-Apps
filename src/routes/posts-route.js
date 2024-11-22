@@ -5,6 +5,7 @@ const postsRoutes = () => {
   const router = express.Router();
 
   router.get("/", postsController.getAllPosts());
+  router.post("/", postsController.createPost());
 
   return router;
 };
