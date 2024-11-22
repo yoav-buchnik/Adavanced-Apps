@@ -1,11 +1,13 @@
 import express from "express";
 import cors from "cors";
+import postsRoutes from "./routes/posts-route.js";
 
 const app = express();
 const port = 3000;
 
 app.use(express.json()); // Accept json body
 app.use(cors());
+app.use("/api/posts", postsRoutes())
 
 app.get("/", (req, res) => {
   res.send("Hello World! - Backend");
