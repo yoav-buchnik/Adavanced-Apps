@@ -19,7 +19,24 @@ const getPostBySender = () => async (req, res) => {
 };
 
 const createPost = () => async (req, res) => {
-  return "Needs implementation";
+  try {
+    const postData = {
+      sender: req.body.sender,
+      content: req.body.content,
+    };
+
+    // Check if all data available
+    if (Object.values(postData).every(Boolean)) {
+      const data = await postsService.createPost(postData);
+      res.status(config.statusCode.SUCCESS).json(data);
+    } else {
+      res
+        .status(config.statusCode.BAD_REQUEST)
+        .json("Incomplete post data provided.");
+    }
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 };
 
 const deletePost = () => async (req, res) => {

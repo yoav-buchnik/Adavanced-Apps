@@ -9,7 +9,7 @@ const getPostById = async (id) => {
 };
 
 const createPost = async (postData) => {
-  return "Needs implementation";
+  return await Post.create(postData);
 };
 
 const updatePost = async (id, postData) => {
