@@ -1,5 +1,7 @@
+import { Post } from "../models/Post.js";
+
 const getAllPosts = async () => {
-  return "Needs implementation";
+  return await Post.find({});
 };
 
 const getPostById = async (id) => {

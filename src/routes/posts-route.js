@@ -1,9 +1,10 @@
 import express from "express";
+import postsController from "../controllers/posts-controller.js";
 
 const postsRoutes = () => {
   const router = express.Router();
 
-  router.get("/", (req, res) => res.send("Hello World! - posts"));
+  router.get("/", postsController.getAllPosts());
 
   return router;
 };

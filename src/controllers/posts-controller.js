@@ -1,5 +1,13 @@
+import postsService from "../services/posts-service.js";
+import config from "../config/config.js";
+
 const getAllPosts = () => async (req, res) => {
-  return "Needs implementation";
+  try {
+    const data = await postsService.getAllPosts();
+    res.status(config.statusCode.SUCCESS).json(data);
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
 };
 
 const getPostById = () => async (req, res) => {
