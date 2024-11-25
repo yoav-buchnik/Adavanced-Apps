@@ -4,6 +4,7 @@ import { connect, disconnect } from "./db.js";
 import config from "./config/config.js";
 
 import postsRoutes from "./routes/posts-route.js";
+import commentsRoutes from "./routes/comments-route.js";
 
 const app = express();
 
@@ -11,6 +12,7 @@ await connect(config.mongoDB.uri);
 app.use(express.json()); // Accept json body
 app.use(cors());
 app.use("/api/posts", postsRoutes());
+app.use("/api/comments", commentsRoutes());
 
 app.get("/", (req, res) => {
   res.send("Hello World! - Backend");
