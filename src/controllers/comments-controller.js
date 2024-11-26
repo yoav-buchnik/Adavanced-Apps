@@ -8,11 +8,13 @@ const createComment = () => async (req, res) => {
           sender: req.body.sender,
           message: req.body.message,
         };
-    
+
         // Check if all data available
         if (Object.values(commentData).every(Boolean)) {
           const data = await commentsService.createComment(commentData);
-          res.status(config.statusCode.SUCCESS).json(data);
+          res
+          .status(data ? config.statusCode.SUCCESS : config.statusCode.NOT_FOUND)
+          .json(data);
         } else {
           res
             .status(config.statusCode.BAD_REQUEST)
