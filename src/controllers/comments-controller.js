@@ -25,6 +25,19 @@ const createComment = () => async (req, res) => {
       }
 };
 
+const getCommentById = () => async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await commentsService.getCommentById(id);
+    res
+      .status(data ? config.statusCode.SUCCESS : config.statusCode.NOT_FOUND)
+      .json(data);
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+};
+
 export default {
     createComment,
+    getCommentById,
 };
