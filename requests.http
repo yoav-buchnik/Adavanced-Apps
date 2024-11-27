@@ -1,76 +1,59 @@
-# Create a post
+### Create a new post
 POST http://localhost:3000/api/posts
 Content-Type: application/json
 
 {
-    "content": "Hey everyone!!!",
+    "content": "Hello World!",
     "sender": "omer@gmail.com"
 }
 
-###
-
-# Get all posts
+### Retrieve all posts
 GET http://localhost:3000/api/posts
 
-###
 
-# Get a single post by ID
-GET http://localhost:3000/api/posts/167671ad1b5f4ab89bf53906445e6445
+### Fetch a post using its ID
+GET http://localhost:3000/api/posts/6740dcf313fa52f3445c7401
 
-###
-
-# Get all posts from a sender
+### Retrieve posts from a specific sender
 GET http://localhost:3000/api/posts?sender=omer@gmail.com
 
-###
-
-# Update a post
-PUT http://localhost:3000/api/posts/167671ad1b5f4ab89bf53906445e6445
+### Update the content of an existing post
+PUT http://localhost:3000/api/posts/6740dcf313fa52f3445c7401
 Content-Type: application/json
 
 {
-    "content": "edit my post"
+    "content": "Updated post content"
 }
 
-###
+### Remove a post by its ID
+DELETE http://localhost:3000/api/posts/6740e2604d09606b47c4beb6
 
-# Delete a post
-DELETE http://localhost:3000/api/posts/167671ad1b5f4ab89bf53906445e6445
-
-###
-
-# Create a comment
+### Add a comment to a post
 POST http://localhost:3000/api/comments
 Content-Type: application/json
 
 {
-  "post": "167671ad1b5f4ab89bf53906445e6445",
-  "content": "wow, great.",
+  "post": "6740dcf313fa52f3445c7401",
+  "content": "Amazing post!",
   "sender": "yoav@gmail.com"
 }
 
-###
-
-# Get all comments
+### Get all comments across posts
 GET http://localhost:3000/api/comments
 
-###
-# Get all comments for a specific post
-GET http://localhost:3000/api/comments?post=167671ad1b5f4ab89bf53906445e6445
+### Retrieve comments for a specific post
+GET http://localhost:3000/api/comments?post=6740dcf313fa52f3445c7401
 
-###
-# Get a comment by ID
-GET http://localhost:3000/api/comments/167671ad1b5f4ab89bf53906445e6445
+### Fetch a comment using its ID
+GET http://localhost:3000/api/comments/674749f912f4bd84a07fd284
 
-###
-# Update a comment
-PUT http://localhost:3000/api/comments/167671ad1b5f4ab89bf53906445e6445
+### Edit a specific comment's content
+PUT http://localhost:3000/api/comments/674749f912f4bd84a07fd284
 Content-Type: application/json
 
 {
-  "content": "very cool!"
+  "content": "This is so inspiring!"
 }
 
-###
-# Delete a comment
-DELETE http://localhost:3000/api/comments/167671ad1b5f4ab89bf53906445e6445
+### Delete a comment by its ID
+DELETE http://localhost:3000/api/comments/674749f912f4bd84a07fd284
