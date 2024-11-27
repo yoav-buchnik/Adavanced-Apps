@@ -8,6 +8,8 @@ const commentsRoutes = () => {
   router.get("/:id", commentsController.getCommentById());
   router.get("/", commentsController.getAllComments());
   router.put("/:id", commentsController.updateComment());
+  router.delete("/:id", commentsController.deleteComment());
+
 
   return router;
 };

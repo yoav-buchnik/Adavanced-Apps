@@ -6,7 +6,7 @@ const createComment = () => async (req, res) => {
         const commentData = {
           post: req.body.post,
           sender: req.body.sender,
-          message: req.body.message,
+          content: req.body.content,
         };
 
         // Check if all data available
@@ -63,10 +63,21 @@ const updateComment = () => async (req, res) => {
   }
 };
 
+const deleteComment = () => async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await commentsService.deleteComment(id);
+    res.status(config.statusCode.SUCCESS).json(data);
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+};
+
 
 export default {
     createComment,
     getCommentById,
     getAllComments,
     updateComment,
+    deleteComment,
 };
