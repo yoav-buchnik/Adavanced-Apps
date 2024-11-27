@@ -37,7 +37,19 @@ const getCommentById = () => async (req, res) => {
   }
 };
 
+const getAllComments = () => async (req, res) => {
+  try {
+    const post = req.query.post;
+    const data = await commentsService.getAllComments(post);
+    res.status(config.statusCode.SUCCESS).json(data);
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+};
+
+
 export default {
     createComment,
     getCommentById,
+    getAllComments,
 };
