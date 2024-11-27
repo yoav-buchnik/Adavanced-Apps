@@ -47,9 +47,26 @@ const getAllComments = () => async (req, res) => {
   }
 };
 
+const updateComment = () => async (req, res) => {
+  try {
+    const { content } = req.body;
+    const id = req.params.id;
+
+    if (!content) {
+      res.status(config.statusCode.BAD_REQUEST).json("{content} is required.");
+    } else {
+      const data = await commentsService.updateComment(id, content);
+      res.status(config.statusCode.SUCCESS).json(data);
+    }
+  } catch (error) {
+    res.status(config.statusCode.INTERNAL_SERVER_ERROR).json(error.message);
+  }
+};
+
 
 export default {
     createComment,
     getCommentById,
     getAllComments,
+    updateComment,
 };
