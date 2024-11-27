@@ -24,8 +24,20 @@ const getAllComments = async (post) => {
   return await Comment.find({});
 };
 
+const updateComment = async (id, content) => {
+  const comment = await getCommentById(id);
+
+  if (comment) {
+    comment.content = content;
+    await comment.save();
+  }
+
+  return comment;
+};
+
 export default {
     createComment,
     getCommentById,
     getAllComments,
+    updateComment,
   };

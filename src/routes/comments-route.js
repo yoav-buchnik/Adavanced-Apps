@@ -7,6 +7,7 @@ const commentsRoutes = () => {
   router.post("/", commentsController.createComment());
   router.get("/:id", commentsController.getCommentById());
   router.get("/", commentsController.getAllComments());
+  router.put("/:id", commentsController.updateComment());
 
   return router;
 };
