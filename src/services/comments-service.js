@@ -17,7 +17,15 @@ const getCommentById = async (id) => {
     return await Comment.findById(id) ?? undefined;;
 };
 
+const getAllComments = async (post) => {
+  if (post) {
+    return await Comment.find({ post });
+  }
+  return await Comment.find({});
+};
+
 export default {
     createComment,
     getCommentById,
+    getAllComments,
   };
