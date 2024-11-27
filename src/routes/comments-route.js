@@ -5,6 +5,7 @@ const commentsRoutes = () => {
   const router = express.Router();
 
   router.post("/", commentsController.createComment());
+  router.get("/:id", commentsController.getCommentById());
 
   return router;
 };
