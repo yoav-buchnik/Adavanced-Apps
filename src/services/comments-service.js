@@ -35,9 +35,19 @@ const updateComment = async (id, content) => {
   return comment;
 };
 
+const deleteComment = async (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return undefined;
+  }
+
+  const deletedComment = await Comment.findByIdAndDelete(id);
+  return deletedComment ?? undefined;
+};
+
 export default {
     createComment,
     getCommentById,
     getAllComments,
     updateComment,
-  };
+    deleteComment,
+};
