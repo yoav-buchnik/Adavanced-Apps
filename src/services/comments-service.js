@@ -1,9 +1,9 @@
 import { Comment } from "../models/comment.js";
-import { getPostById } from "./posts-service.js";
+import postsService from "../services/posts-service.js";
 import mongoose from "mongoose";
 
 const createComment = async (commentData) => {
-    const post = await getPostById(commentData.post);
+    const post = await postsService.getPostById(commentData.post);
     if(!post) {
         return undefined
     }
