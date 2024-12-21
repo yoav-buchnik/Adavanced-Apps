@@ -1,20 +1,21 @@
-import express from "express";
+import express, { Application, Request, Response } from "express";
 import cors from "cors";
-import { connect, disconnect } from "./db.js";
-import config from "./config/config.js";
+import { connect, disconnect } from "./db";
+import config from "./config/config";
 
-import postsRoutes from "./routes/posts-route.js";
-import commentsRoutes from "./routes/comments-route.js";
+import postsRoutes from "./routes/posts-route";
+import commentsRoutes from "./routes/comments-route";
 
-const app = express();
+const app: Application = express();
 
 await connect(config.mongoDB.uri);
+
 app.use(express.json()); // Accept json body
 app.use(cors());
 app.use("/api/posts", postsRoutes());
 app.use("/api/comments", commentsRoutes());
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Hello World! - Backend");
 });
 
@@ -23,7 +24,7 @@ app.listen(config.backend.port, () => {
 });
 
 // Handle uncaught exceptions
-process.on("uncaughtException", async (error) => {
+process.on("uncaughtException", async (error: Error) => {
   console.log("Uncaught Exception:", error);
   try {
     await disconnect();
