@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
     "compose": "docker-compose up -d"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yoav-buchnik/adavanced-app-ex01.git"
   },
-  "author": "Yoav buchnik && Omer yerushalmi",
+  "author": "Yoav Buchnik && Omer Yerushalmi",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/yoav-buchnik/adavanced-app-ex01/issues"
@@ -26,6 +28,7 @@
     "mongoose": "^8.8.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "ts-node": "^10.9.2",
