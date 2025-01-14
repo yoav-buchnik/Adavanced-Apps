@@ -1,14 +1,15 @@
 import express, { Router } from "express";
 import commentsController from "../controllers/comments-controller";
+import authenticate from "../common/auth_middleware";
 
 const commentsRoutes = (): Router => {
   const router = express.Router();
 
-  router.post("/", commentsController.createComment);
-  router.get("/:id", commentsController.getCommentById);
-  router.get("/", commentsController.getAllComments);
-  router.put("/:id", commentsController.updateComment);
-  router.delete("/:id", commentsController.deleteComment);
+  router.post("/", authenticate, commentsController.createComment);
+  router.get("/:id", authenticate, commentsController.getCommentById);
+  router.get("/", authenticate, commentsController.getAllComments);
+  router.put("/:id", authenticate, commentsController.updateComment);
+  router.delete("/:id", authenticate, commentsController.deleteComment);
 
   return router;
 };
