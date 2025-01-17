@@ -33,8 +33,3 @@ coverage/
 # Dependencies
 package-lock.json
 yarn.lock
-
-# Attachments
-*.txt
-*.png
-*.mp4
