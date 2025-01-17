@@ -28,6 +28,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
     const userData = {
       username: req.body.username,
       email: req.body.email,
+      password: req.body.password,
     };
 
     if (Object.values(userData).every(Boolean)) {
@@ -45,6 +46,12 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id;
     const data = await usersService.deleteUser(id);
+
+    if (!data) {
+      res.status(config.statusCode.NOT_FOUND).json("User not found");
+      return;
+    }
+
     res.status(config.statusCode.SUCCESS).json(data);
   } catch (error) {
     res.status(config.statusCode.INTERNAL_SERVER_ERROR).json((error as Error).message);
@@ -58,10 +65,17 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
     if (!email) {
       res.status(config.statusCode.BAD_REQUEST).json("<email> is required.");
-    } else {
-      const data = await usersService.updateUser(id, email);
-      res.status(config.statusCode.SUCCESS).json(data);
+      return;
     }
+
+    const data = await usersService.updateUser(id, email);
+
+    if (!data) {
+      res.status(config.statusCode.NOT_FOUND).json("User not found");
+      return;
+    }
+
+    res.status(config.statusCode.SUCCESS).json(data);
   } catch (error) {
     res.status(config.statusCode.INTERNAL_SERVER_ERROR).json((error as Error).message);
   }

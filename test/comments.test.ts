@@ -65,6 +65,30 @@ describe('Comments', () => {
             expect(response.body).toHaveProperty('_id');
             expect(response.body).toHaveProperty('content', 'Test comment');
         });
+
+        it('should fail with incomplete data', async () => {
+            const response = await request(app)
+                .post('/api/comments')
+                .set('Authorization', `Bearer ${accessToken}`)
+                .send({
+                    // Missing required fields
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body).toBe('Incomplete comment data provided.');
+        });
+    });
+
+    describe('PUT /comments/:id', () => {
+        it('should fail without content', async () => {
+            const response = await request(app)
+                .put('/api/comments/123')
+                .set('Authorization', `Bearer ${accessToken}`)
+                .send({});
+
+            expect(response.status).toBe(400);
+            expect(response.body).toBe('{content} is required.');
+        });
     });
 
     describe('GET /comments', () => {
@@ -75,6 +99,16 @@ describe('Comments', () => {
 
             expect(response.status).toBe(200);
             expect(Array.isArray(response.body)).toBeTruthy();
+        });
+    });
+
+    describe('GET /comments/:id', () => {
+        it('should handle invalid comment id', async () => {
+            const response = await request(app)
+                .get('/api/comments/invalid_id')
+                .set('Authorization', `Bearer ${accessToken}`);
+
+            expect(response.status).toBe(404);
         });
     });
 }); 

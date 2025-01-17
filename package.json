@@ -8,7 +8,7 @@
     "build": "tsc",
     "token": "openssl rand -out openssl-secret.txt -hex 64",
     "compose": "docker-compose up -d",
-    "test": "jest --detectOpenHandles --forceExit --verbose=false"
+    "test": "jest --coverage --detectOpenHandles --forceExit --verbose=false"
   },
   "repository": {
     "type": "git",

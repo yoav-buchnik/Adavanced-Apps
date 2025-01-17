@@ -50,6 +50,16 @@ describe('Posts', () => {
             expect(response.body).toHaveProperty('_id');
             expect(response.body).toHaveProperty('content', 'Test post');
         });
+
+        it('should fail with incomplete data', async () => {
+            const response = await request(app)
+                .post('/api/posts')
+                .set('Authorization', `Bearer ${accessToken}`)
+                .send({});
+
+            expect(response.status).toBe(400);
+            expect(response.body).toBe('Incomplete post data provided.');
+        });
     });
 
     describe('GET /posts', () => {
@@ -60,6 +70,28 @@ describe('Posts', () => {
 
             expect(response.status).toBe(200);
             expect(Array.isArray(response.body)).toBeTruthy();
+        });
+    });
+
+    describe('PUT /posts/:id', () => {
+        it('should fail without content', async () => {
+            const response = await request(app)
+                .put('/api/posts/123')
+                .set('Authorization', `Bearer ${accessToken}`)
+                .send({});
+
+            expect(response.status).toBe(400);
+            expect(response.body).toBe('{content} is required.');
+        });
+    });
+
+    describe('GET /posts/:id', () => {
+        it('should handle invalid post id', async () => {
+            const response = await request(app)
+                .get('/api/posts/invalid_id')
+                .set('Authorization', `Bearer ${accessToken}`);
+
+            expect(response.status).toBe(404);
         });
     });
 }); 
