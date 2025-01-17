@@ -91,21 +91,18 @@ const logout = async (req: Request, res: Response, next: NextFunction): Promise<
 
       const userId = userInfo._id;
       const user = await User.findById(userId);
-
       if (!user) {
         throw new ApiError(config.statusCode.FORBIDDEN, "Invalid request");
       }
-
       if (!user.tokens.includes(token)) {
-        user.tokens = [""];
+        user.tokens = [];
         await user.save();
         throw new ApiError(config.statusCode.FORBIDDEN, "Invalid request");
       }
-
       user.tokens.splice(user.tokens.indexOf(token), 1);
       await user.save();
-      res.status(config.statusCode.SUCCESS).json();
-    });
+      res.status(config.statusCode.SUCCESS).json({ message: "Logged out successfully" });
+    })
   } catch (error) {
     next(error);
   }

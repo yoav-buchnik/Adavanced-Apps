@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import authController from "../controllers/auth-controller";
-import authenticate from "common/auth_middleware";
+import authenticate from "../common/auth_middleware";
 
 /**
  * @swagger
