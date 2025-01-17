@@ -6,6 +6,7 @@ import config from "./config/config";
 import postsRoutes from "./routes/posts-route";
 import commentsRoutes from "./routes/comments-route";
 import usersRoutes from "routes/users-route";
+import authRoutes from "routes/auth-route";
 
 const app: Application = express();
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use("/api/posts", postsRoutes());
 app.use("/api/comments", commentsRoutes());
 app.use("/api/users", usersRoutes());
+app.use("/api/auth", authRoutes());
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World! - Backend");

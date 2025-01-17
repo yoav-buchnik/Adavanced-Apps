@@ -1,7 +1,6 @@
 {
   "name": "adavanced-app-ex01",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
@@ -21,9 +20,12 @@
   },
   "homepage": "https://github.com/yoav-buchnik/adavanced-app-ex01#readme",
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.2"
   },
   "devDependencies": {
@@ -32,5 +34,6 @@
     "@types/node": "^22.10.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
-  }
+  },
+  "description": ""
 }
