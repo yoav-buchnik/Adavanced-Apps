@@ -8,6 +8,7 @@ import postsRoutes from "./routes/posts-route";
 import commentsRoutes from "./routes/comments-route";
 import usersRoutes from "./routes/users-route";
 import authRoutes from "./routes/auth-route";
+import createSwagger from "common/swagger";
 
 const app: Application = express();
 
@@ -27,6 +28,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
 app.listen(config.backend.port, () => {
   console.log(`Backend is running on port ${config.backend.port}`);
 });
+
+createSwagger(app);
 
 // Handle uncaught exceptions
 process.on("uncaughtException", async (error: Error) => {
