@@ -1,8 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import jwt from 'jsonwebtoken';
 import config from "../config/config";
 
-const authenticate = async (req: Request, res: Response, next) => {
+const authenticate = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
     try {
         const authHeaders = req.headers['authorization'];
         if (!authHeaders) {
@@ -19,9 +23,9 @@ const authenticate = async (req: Request, res: Response, next) => {
         next();
     } catch (error) {
         if (error.message === 'No authorization header' || error.message === 'No token provided') {
-            return res.status(config.statusCode.UNAUTHORIZED).json({ message: error.message });
+            res.status(config.statusCode.UNAUTHORIZED).json({ message: error.message });
         }
-        return res.status(config.statusCode.FORBIDDEN).json({ message: error.message });
+        res.status(config.statusCode.FORBIDDEN).json({ message: error.message });
     }
 }
 
