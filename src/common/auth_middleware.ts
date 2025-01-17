@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from 'jsonwebtoken';
 import config from "../config/config";
+import ApiError from "./api-error";
 
 const authenticate = async (
     req: Request,
@@ -10,23 +11,24 @@ const authenticate = async (
     try {
         const authHeaders = req.headers['authorization'];
         if (!authHeaders) {
-            throw new Error('No authorization header');
+            throw new ApiError(config.statusCode.UNAUTHORIZED, 'No authorization header');
         }
 
         const token = authHeaders.split(' ')[1];
         if (!token) {
-            throw new Error('No token provided');
+            throw new ApiError(config.statusCode.UNAUTHORIZED, 'No token provided');
         }
 
-        const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        req.body.user = user;
-        next();
-    } catch (error) {
-        if (error.message === 'No authorization header' || error.message === 'No token provided') {
-            res.status(config.statusCode.UNAUTHORIZED).json({ message: error.message });
+        try {
+            const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            req.body.user = user;
+            next();
+        } catch (jwtError) {
+            throw new ApiError(config.statusCode.UNAUTHORIZED, 'Invalid token');
         }
-        res.status(config.statusCode.FORBIDDEN).json({ message: error.message });
+    } catch (error) {
+        next(error);
     }
-}
+};
 
 export default authenticate;
