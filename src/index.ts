@@ -1,12 +1,13 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { connect, disconnect } from "./db";
 import config from "./config/config";
+import errorHandler from './common/error-middleware';
 
 import postsRoutes from "./routes/posts-route";
 import commentsRoutes from "./routes/comments-route";
-import usersRoutes from "routes/users-route";
-import authRoutes from "routes/auth-route";
+import usersRoutes from "./routes/users-route";
+import authRoutes from "./routes/auth-route";
 
 const app: Application = express();
 
@@ -19,8 +20,8 @@ app.use("/api/comments", commentsRoutes());
 app.use("/api/users", usersRoutes());
 app.use("/api/auth", authRoutes());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World! - Backend");
+app.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
+  errorHandler(err, req, res, next);
 });
 
 app.listen(config.backend.port, () => {
