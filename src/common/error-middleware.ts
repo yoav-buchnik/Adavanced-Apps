@@ -8,8 +8,7 @@ const errorHandler = (
     res: Response,
     next: NextFunction
 ) => {
-    // Log error for debugging
-    console.error(err.message);
+    console.log(err.message);
 
     if (err instanceof ApiError) {
         return res.status(err.statusCode).json({
